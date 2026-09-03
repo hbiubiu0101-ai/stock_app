@@ -190,11 +190,12 @@ class CloudStore:
             self._request('POST', 'biu_app_state', params={'on_conflict': 'state_key'}, body={
                 'state_key': 'workspace_list:' + self.profile_id + ':' + kind + ':' + code,
                 'state_value': {'code': code}, 'updated_at': self._now()},
-                prefer='resolution=ignore-duplicates,return=minimal')
+                prefer='resolution=merge-duplicates,return=minimal')
             return
         # One row per mutation: concurrent phones do not replace each other's lists.
         self._request('POST', 'biu_stock_lists', params={'on_conflict': 'list_type,stock_code'},
-            body={'list_type': kind, 'stock_code': code}, prefer='resolution=ignore-duplicates,return=minimal')
+            body={'list_type': kind, 'stock_code': code, 'created_at': self._now()},
+            prefer='resolution=merge-duplicates,return=minimal')
 
     def remove(self, kind, code):
         self._validate_stock(kind, code)

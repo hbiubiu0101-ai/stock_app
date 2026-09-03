@@ -35,6 +35,7 @@ for _biu_key, _biu_value in {
 
 st.set_page_config(page_title="Biu · 我的工作台", layout="wide")
 login_gate()  # 在所有行情请求、列表读取和通知操作之前验证登录。
+st.caption('云端版本：20260903-sidebar-local2 · 按最后添加时间排序')
 st.markdown('<style>\n:root {color-scheme:dark; --biu-bg:#070d21; --biu-panel:#111d3d; --biu-line:rgba(132,157,243,.24); --biu-text:#edf3ff; --biu-muted:#a5b3d3;}\n.stApp {background:radial-gradient(ellipse at 12% 0%,#142f63 0%,transparent 48%),radial-gradient(ellipse at 100% 40%,#29144d 0%,transparent 55%),var(--biu-bg);color:var(--biu-text);}\n[data-testid="stHeader"] {background:rgba(7,13,33,.92);}\n[data-testid="stMainBlockContainer"], .main .block-container {padding-top:2.5rem;padding-bottom:2rem;max-width:1740px;}\n[data-testid="stSidebar"] {background:linear-gradient(170deg,#142958 0%,#101c3b 42%,#17142f 100%);border-right:1px solid var(--biu-line);}\n[data-testid="stSidebarUserContent"] {padding:1.2rem 1rem 2rem;}\nh1,h2,h3,h4,h5,h6 {color:#f3f6ff!important;letter-spacing:.01em;}\nh1 {font-size:2rem!important;font-weight:750!important;}\nh2,h3 {font-size:1.1rem!important;}\n[data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p {color:var(--biu-muted)!important;line-height:1.65;}\n.biu-brand {font-size:30px;font-weight:800;letter-spacing:-1px;color:#57baff;margin-bottom:4px;}\n.biu-eyebrow {font-size:11px;letter-spacing:2px;color:#9cafdb;margin:0 0 12px;}\n.biu-nav {display:flex;gap:10px;flex-wrap:wrap;padding:4px 0 16px;}\n.biu-nav a {display:block;padding:9px 18px;border:1px solid var(--biu-line);background:#16284a;border-radius:10px;color:#d3e5ff!important;text-decoration:none!important;font-size:13px;}\n.biu-nav a:hover {background:#234477;border-color:#54b6ff;}\n.biu-nav a:focus-visible {outline:2px solid #79d6ff;outline-offset:3px;}\n.biu-anchor {scroll-margin-top:75px;}\n[data-testid="stForm"], [data-testid="stExpander"], .st-key-biu_kline_panel {border:1px solid var(--biu-line)!important;border-radius:16px!important;background:linear-gradient(115deg,rgba(24,53,100,.64),rgba(39,25,74,.65));box-shadow:0 10px 28px rgba(0,0,0,.1);}\n[data-testid="stForm"] {padding:18px!important;}\n[data-testid="stExpander"] details>summary {background:rgba(39,57,102,.25);border-radius:15px;padding:14px 16px;color:#edf3ff;}\n[data-testid="stExpander"] details>summary:hover {background:rgba(75,99,164,.24);}\n.st-key-biu_kline_panel {padding:16px!important;}\n[data-testid="stMetric"] {border:1px solid var(--biu-line);border-radius:14px;padding:18px 16px;min-height:122px;background:linear-gradient(125deg,rgba(30,81,148,.7),rgba(48,27,96,.75));}\n[data-testid="stMetricLabel"] {color:#b8c9ed;font-size:13px;}\n[data-testid="stMetricValue"] {color:#f1f6ff;font-size:clamp(20px,1.8vw,30px)!important;font-weight:650;font-variant-numeric:tabular-nums;}\n[data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] [data-testid="stMetric"]) {flex-wrap:wrap;gap:12px;}\n[data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] [data-testid="stMetric"]) > [data-testid="stColumn"] {flex:1 1 150px;min-width:150px;}\n[data-testid="stButton"] button, [data-testid="stFormSubmitButton"] button, [data-testid="stDownloadButton"] button {border:1px solid rgba(120,156,249,.4);background:#20385d;color:#e8f3ff;border-radius:10px;min-height:40px;transition:background .12s,border-color .12s;}\n[data-testid="stFormSubmitButton"] button {background:linear-gradient(100deg,#087bc3,#6d46d7);border-color:#628dff;font-weight:600;}\n[data-testid="stButton"] button:hover, [data-testid="stDownloadButton"] button:hover {background:#304c80;border-color:#77c7ff;color:white;}\nbutton:focus-visible {outline:2px solid #87dcff!important;outline-offset:2px;}\nbutton:disabled {opacity:.46;}\n[data-baseweb="input"], [data-baseweb="base-input"], [data-baseweb="select"]>div, [data-baseweb="textarea"] {background:#101b36!important;border-color:#44567b!important;color:#edf3ff!important;border-radius:9px;}\ninput,textarea {color:#edf3ff!important;caret-color:#65ccff;}\ninput::placeholder,textarea::placeholder {color:#879bc1!important;}\n[data-testid="stWidgetLabel"] p {color:#b9c8e7;}\n[data-testid="stDataFrame"] {border:1px solid var(--biu-line);border-radius:10px;overflow:hidden;}\n[data-testid="stAlert"] {border-radius:12px;border:1px solid var(--biu-line);}\n.stock-list-heading {color:#a8bee8!important;}\n.stock-list-cell {color:#e1ebff;}\n[class*="st-key-stock_row_"] {border-bottom:1px solid rgba(129,155,216,.08);}\n[class*="st-key-stock_row_"] button {background:rgba(43,66,111,.4);border-color:rgba(129,155,216,.28);}\n.js-plotly-plot .plotly .modebar {background:transparent!important;}\n.js-plotly-plot .plotly .modebar-btn path {fill:#9bb3de!important;}\nhr {border-color:var(--biu-line)!important;}\n@media(min-width:1100px) {[data-testid="stSidebar"] {min-width:410px!important;max-width:410px!important;}}\n@media(max-width:768px) {\n [data-testid="stMainBlockContainer"],.main .block-container {padding:3rem .8rem 1.5rem!important;}\n h1 {font-size:1.5rem!important;}\n [data-testid="stForm"],.st-key-biu_kline_panel {padding:12px!important;}\n [data-testid="stMetric"] {padding:14px 12px;min-height:105px;}\n [data-testid="stMetricValue"] {font-size:22px!important;}\n [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] [data-testid="stMetric"]) > [data-testid="stColumn"] {flex:1 1 calc(50% - 12px);min-width:130px;}\n [data-testid="stSidebar"] {min-width:0!important;max-width:96vw!important;}\n .biu-nav {gap:7px;}\n .biu-nav a {padding:8px 11px;font-size:12px;}\n .st-key-biu_kline_panel {padding:4px!important;}\n}\n@media(prefers-reduced-motion:reduce) {* {transition:none!important;}}\n</style>', unsafe_allow_html=True)
 st.sidebar.markdown('<div class="biu-brand">Biu</div><div class="biu-eyebrow">MY STOCK WORKSPACE</div>', unsafe_allow_html=True)
 
@@ -260,6 +261,7 @@ try:
             code = row['state_key'].removeprefix('signal_v2:')
             data = row.get('state_value')
             if not re.fullmatch(r'[0-9]{6}', code) or not isinstance(data, dict): continue
+            if data.get('strategy_version') != '20260903-cap1682-vol2148': continue
             checked = data.get('checked')
             if not isinstance(checked, str): continue
             state['checked'][code] = checked
@@ -276,7 +278,7 @@ try:
         persisted = st.session_state.setdefault('_persisted_signals', {})
         for code, checked in state.get('checked', {}).items():
             item = state.get('alerts', {}).get(code)
-            value = {'checked': checked, 'alert': item}
+            value = {'checked': checked, 'alert': item, 'strategy_version': '20260903-cap1682-vol2148'}
             if persisted.get(code) == value: continue
             cloud_store().put_state('signal_v2:' + code, value)
             persisted[code] = value
@@ -515,7 +517,9 @@ try:
         if not (initial or requested):
             return
         loading = st.empty()
-        _show_loading_video(loading)
+        # This runs inside the sidebar fragment. Never mount a page-wide modal
+        # for list mutations: the current main chart/query must stay untouched.
+        loading.info('正在更新左侧自选、持仓及报价…')
         try:
             require_session()
             st.session_state['_quotes_requested'] = True
@@ -1066,10 +1070,10 @@ try:
         # 入场附加过滤：均线偏离上限及成交额活跃度范围。
         df['buy_sig1'] &= df['M10'] < df['M30'] * 1000000.0
         activity = df['M5'] / df['M30']
-        df['buy_sig1'] &= (df['MA5'] / df['MA120'] <= 1.6) & (activity >= 0.0) & (activity <= 1000.0)
+        df['buy_sig1'] &= (df['MA5'] / df['MA120'] <= 1.682) & (activity >= 0.0) & (activity <= 1000.0)
         # 六道候选：均线入场，成交额和偏离过滤；买入不要求MACD多头。
         buy_activity = df['M2'] / df['M30']
-        df['buy_sig1'] &= (buy_activity >= 0.2) & (buy_activity <= 2.2)
+        df['buy_sig1'] &= (buy_activity >= 0.2) & (buy_activity <= 2.148)
         weak = df['DIFF'] < df['DEA']
         df['sell_sig1'] = (df['MA5'] / df['MA120'] >= 1.025) & weak
         df['sell_sig2'] = (df['close'] < df['MA40']) & (df['MA40'] < df['MA40'].shift(1))
@@ -1126,7 +1130,7 @@ try:
                     trades.append({
                         '买入日期': entry['date'], '买入信号日期': entry['signal_date'],
                         '交易模式': '常规卖出',
-                        '买入条件': '收盘价>MA10且MA10上行，0.2≤M2/M30≤2.2，MA5/MA120≤1.6',
+                        '买入条件': '收盘价>MA10且MA10上行，0.2≤M2/M30≤2.148，MA5/MA120≤1.682',
                         '买入价': entry['price'], '买入股数': entry['shares'],
                         '买入总金额': entry['gross'], '买入费用': entry['fee'],
                         '卖出日期': date, '卖出信号日期': pending['date'],
@@ -1183,7 +1187,7 @@ try:
         open_trade = None
         if entry:
             open_trade = {'买入日期': entry['date'], '交易模式': '持仓中',
-                          '买入条件': '收盘价>MA10且MA10上行，0.2≤M2/M30≤2.2，MA5/MA120≤1.6',
+                          '买入条件': '收盘价>MA10且MA10上行，0.2≤M2/M30≤2.148，MA5/MA120≤1.682',
                           '买入价': entry['price'], '买入股数': position,
                           '买入总金额': entry['gross'], '卖出日期': pd.NaT,
                           '卖出条件': '尚未平仓', '卖出价': float('nan'),
@@ -1362,9 +1366,11 @@ try:
 
 
     @st.cache_data(max_entries=16, show_spinner=False)
-    def cached_backtest_strategy(df, **kwargs):
-        # 仅缓存相同数据与相同参数的结果，不改变策略、费用或成交时点。
+    def _cached_backtest_versioned(df, strategy_version, **kwargs):
         return backtest_strategy(df, **kwargs)
+
+    def cached_backtest_strategy(df, **kwargs):
+        return _cached_backtest_versioned(df, '20260903-cap1682-vol2148', **kwargs)
 
 
     # The sidebar coalesces initial loads and explicit user actions into one run.
@@ -1626,7 +1632,7 @@ try:
                                                                "text/csv", on_click="ignore")
 
                                 with st.expander("📖 当前策略说明", expanded=False):
-                                    st.markdown("### 当前策略汇总（六道候选版）\n\n以下说明对应当前程序实际执行的日线规则；所有股票使用同一组固定技术参数。\n\n**指标口径**\n\n- MA表示收盘价均线；M表示“成交量×收盘价”代理成交额的均线，并非直接使用行情接口的成交额字段。\n- MACD参数为(3,39,9)。DIFF＜DEA表示当天处于空头状态，不是必须当天发生死叉，也没有额外保持三天的逻辑。\n\n**买入：全部条件同时满足**\n\n- 空仓、冷却已结束，且没有待执行订单。\n- 收盘价＞MA10，且MA10＞前一根日K线的MA10。\n- 0.2≤M2/M30≤2.2，且MA5/MA120≤1.6。\n- 代码另保留两项宽范围过滤：M10＜M30×1,000,000，0≤M5/M30≤1,000。\n- 买入不要求MACD多头，也不是旧版“五项信号凑两项”的计数方式。\n\n**常规卖出：持仓至少12根日K线，以下三项至少满足两项**\n\n1. MA5/MA120≥1.025，且DIFF＜DEA。\n2. 收盘价＜MA40，且MA40＜前一根日K线的MA40。\n3. M3＞M180×3.9，且DIFF＜DEA。\n\n**独立退出：任意一条触发即可，不要求凑足常规卖点**\n\n- 持仓至少90根日K线、收盘价较实际买入价涨幅不足8%、收盘价＜MA42，三项同时成立。\n- 收盘价较实际买入价亏损达到或超过33%。\n\n持仓根数从买入成交日计为第1根。上述涨跌幅以含滑点的买入成交价为基准，不含手续费。33%只是收盘触发条件，不保证最终亏损不超过33%；当前没有盈利回撤退出。\n\n**冷却与成交**\n\n- 卖出成交日为T日，T+1至T+19禁止买入；第19根结束可检查入场条件，最早T+20开盘买入。没有分支冷却或提前解锁。\n- 收盘确认信号，下一根成交量大于0的日K线按开盘价加减滑点模拟成交；不是信号当天收盘成交。\n- 全仓进出：买入预留费用后按100股整数手尽量买满，卖出全部持股。可能留下不足一手的现金。\n- 这是日线成交模拟，没有单独判断涨跌停封板是否能够成交，不能等同于实盘成交保证。\n\n**费用与收益口径**\n\n- 买入价为开盘价×1.001，卖出价为开盘价×0.999，即每边0.1%滑点。\n- 每笔佣金为成交额的0.03%，最低5元；另按代码计入双边过户费和卖出印花税。\n- 过户费：2022-04-29之前0.002%，当日起0.001%；卖出印花税：2023-08-28之前0.1%，当日起0.05%。\n- 期末账户权益＝现金＋剩余持股按末日收盘价计价；未平仓不强制卖出，浮盈亏计入总收益但不计入已平仓胜率。\n- 回测资金和起止日期以页面实际设置为准；先用完整输入历史计算指标，M250有效且在所选区间内的日K线才参与回测。\n- 手机轻量模式仅减少图表展示根数和按需加载表格，不截短历史回测。\n\n**行情来源与结果说明**\n\n优先使用BaoStock，失败时按现有逻辑尝试TuShare前复权日线。不同来源、复权口径或历史范围可能改变信号和收益，不能直接套用旧CSV的结果。历史回测不保证未来收益。")
+                                    st.markdown("### 当前策略汇总（六道候选版）\n\n以下说明对应当前程序实际执行的日线规则；所有股票使用同一组固定技术参数。\n\n**指标口径**\n\n- MA表示收盘价均线；M表示“成交量×收盘价”代理成交额的均线，并非直接使用行情接口的成交额字段。\n- MACD参数为(3,39,9)。DIFF＜DEA表示当天处于空头状态，不是必须当天发生死叉，也没有额外保持三天的逻辑。\n\n**买入：全部条件同时满足**\n\n- 空仓、冷却已结束，且没有待执行订单。\n- 收盘价＞MA10，且MA10＞前一根日K线的MA10。\n- 0.2≤M2/M30≤2.148，且MA5/MA120≤1.682。\n- 代码另保留两项宽范围过滤：M10＜M30×1,000,000，0≤M5/M30≤1,000。\n- 买入不要求MACD多头，也不是旧版“五项信号凑两项”的计数方式。\n\n**常规卖出：持仓至少12根日K线，以下三项至少满足两项**\n\n1. MA5/MA120≥1.025，且DIFF＜DEA。\n2. 收盘价＜MA40，且MA40＜前一根日K线的MA40。\n3. M3＞M180×3.9，且DIFF＜DEA。\n\n**独立退出：任意一条触发即可，不要求凑足常规卖点**\n\n- 持仓至少90根日K线、收盘价较实际买入价涨幅不足8%、收盘价＜MA42，三项同时成立。\n- 收盘价较实际买入价亏损达到或超过33%。\n\n持仓根数从买入成交日计为第1根。上述涨跌幅以含滑点的买入成交价为基准，不含手续费。33%只是收盘触发条件，不保证最终亏损不超过33%；当前没有盈利回撤退出。\n\n**冷却与成交**\n\n- 卖出成交日为T日，T+1至T+19禁止买入；第19根结束可检查入场条件，最早T+20开盘买入。没有分支冷却或提前解锁。\n- 收盘确认信号，下一根成交量大于0的日K线按开盘价加减滑点模拟成交；不是信号当天收盘成交。\n- 全仓进出：买入预留费用后按100股整数手尽量买满，卖出全部持股。可能留下不足一手的现金。\n- 这是日线成交模拟，没有单独判断涨跌停封板是否能够成交，不能等同于实盘成交保证。\n\n**费用与收益口径**\n\n- 买入价为开盘价×1.001，卖出价为开盘价×0.999，即每边0.1%滑点。\n- 每笔佣金为成交额的0.03%，最低5元；另按代码计入双边过户费和卖出印花税。\n- 过户费：2022-04-29之前0.002%，当日起0.001%；卖出印花税：2023-08-28之前0.1%，当日起0.05%。\n- 期末账户权益＝现金＋剩余持股按末日收盘价计价；未平仓不强制卖出，浮盈亏计入总收益但不计入已平仓胜率。\n- 回测资金和起止日期以页面实际设置为准；先用完整输入历史计算指标，M250有效且在所选区间内的日K线才参与回测。\n- 手机轻量模式仅减少图表展示根数和按需加载表格，不截短历史回测。\n\n**行情来源与结果说明**\n\n优先使用BaoStock，失败时按现有逻辑尝试TuShare前复权日线。不同来源、复权口径或历史范围可能改变信号和收益，不能直接套用旧CSV的结果。历史回测不保证未来收益。")
 
                         else:
                             st.info(
