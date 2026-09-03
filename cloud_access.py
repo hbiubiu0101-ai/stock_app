@@ -84,18 +84,36 @@ export default function({data, parentElement, setStateValue}) {
   if (parentElement._biuRememberOp === data.id) return;
   parentElement._biuRememberOp = data.id;
   const name = '__Host-biu_remember_v1';
-  const read = () => (document.cookie.split('; ').find(v => v.startsWith(name+'=')) || '').slice(name.length+1);
+  const backup = 'biu_remember_v1';
+  const read = () => (document.cookie.split(';').map(v => v.trim()).find(v => v.startsWith(name+'=')) || '').slice(name.length+1);
+  const readBackup = () => {
+    try {
+      const item = JSON.parse(localStorage.getItem(backup) || 'null');
+      if (item && typeof item.token === 'string' && item.expires > Math.floor(Date.now()/1000)) return item.token;
+      localStorage.removeItem(backup);
+    } catch (_) {}
+    return '';
+  };
   let ok = true, token = '';
   try {
     if (data.action === 'write') {
       if (location.protocol !== 'https:') throw new Error('HTTPS required');
       const age = Math.max(0, Math.min(604800, data.expires - Math.floor(Date.now()/1000)));
-      document.cookie = name+'='+data.token+'; Path=/; Max-Age='+age+'; Secure; SameSite=Strict';
-      ok = read() === data.token;
+      let cookieOK = false, backupOK = false;
+      try {
+        document.cookie = name+'='+data.token+'; Path=/; Max-Age='+age+'; Secure; SameSite=Strict';
+        cookieOK = read() === data.token;
+      } catch (_) {}
+      try {
+        localStorage.setItem(backup, JSON.stringify({token:data.token, expires:data.expires}));
+        backupOK = readBackup() === data.token;
+      } catch (_) {}
+      ok = cookieOK || backupOK;
     } else if (data.action === 'clear') {
-      document.cookie = name+'=; Path=/; Max-Age=0; Secure; SameSite=Strict';
-      ok = !read();
-    } else { token = read(); }
+      try { document.cookie = name+'=; Path=/; Max-Age=0; Secure; SameSite=Strict'; } catch (_) {}
+      try { localStorage.removeItem(backup); } catch (_) {}
+      ok = !read() && !readBackup();
+    } else { token = read() || readBackup(); }
   } catch (_) { ok = false; }
   setStateValue('result', {id:data.id, ok, token});
 }
@@ -259,10 +277,29 @@ def login_gate():
     if len(secret('APP_PASSWORD')) < 12:
         st.error('请在 Secrets 把 APP_PASSWORD 设置为至少12位的独立强密码。')
         st.stop()
+    # Streamlit exposes cookies from the initial browser connection. Restoring
+    # here also works before the asynchronous component has rendered.
+    if not authorized() and not st.session_state.get('_remember_checked'):
+        try:
+            cookie_token = st.context.cookies.get('__Host-biu_remember_v1', '')
+            if cookie_token and _resume_remember_token(cookie_token):
+                st.session_state['_remember_checked'] = True
+        except CloudError:
+            pass  # Component restoration/manual login remain available.
     result = _remember_browser()
+    command = st.session_state.get('_remember_command', {})
+    # Mount/acknowledge the persistence component before expensive market loading.
+    # Otherwise a login rerun can begin loading before the browser receives its token.
+    if authorized() and command.get('action') == 'write' and (
+            not isinstance(result, dict) or result.get('id') != command.get('id')):
+        st.info('正在保存本设备的7天登录状态…')
+        if st.button('跳过保存，先进入工作台', key='_remember_skip'):
+            st.session_state['_remember_command'] = {'id': secrets.token_hex(8), 'action': 'read'}
+            st.rerun()
+        st.stop()
     if isinstance(result, dict):
         if not result.get('ok', False):
-            st.caption('浏览器未允许保存登录，请勿使用无痕模式；本次仍可正常登录。')
+            st.warning('本设备未能保存登录状态，下次可能需要重新登录。请使用同一浏览器、同一应用网址，并关闭无痕模式。')
         if not authorized() and not st.session_state.get('_remember_checked') and result.get('id') == 'read':
             try:
                 _resume_remember_token(result.get('token', ''))

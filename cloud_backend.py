@@ -168,12 +168,12 @@ class CloudStore:
         if self.profile_id != 'default':
             prefix = 'workspace_list:' + self.profile_id + ':'
             for row in self._rows('biu_app_state', {'state_key': 'like.' + prefix + '*',
-                    'select': 'state_key,state_value', 'order': 'state_key'}):
+                    'select': 'state_key,state_value,updated_at', 'order': 'updated_at.asc,state_key.asc'}):
                 kind, code = row['state_key'].removeprefix(prefix).split(':', 1)
                 self._validate_stock(kind, code)
                 result[kind].append(code)
             return result
-        for row in self._rows('biu_stock_lists', {'select': 'list_type,stock_code', 'order': 'list_type,stock_code'}):
+        for row in self._rows('biu_stock_lists', {'select': 'list_type,stock_code,created_at', 'order': 'created_at.asc,list_type.asc,stock_code.asc'}):
             kind, code = row.get('list_type'), row.get('stock_code')
             self._validate_stock(kind, code)
             result[kind].append(code)
